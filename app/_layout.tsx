@@ -30,6 +30,7 @@ export default function RootLayout() {
     <View
       style={{
         flex: 1,
+        paddingTop: 10,
       }}
     >
       <WebView
