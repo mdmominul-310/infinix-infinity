@@ -13,14 +13,16 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.infinix.infinity"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.infinix.infinity"
+      "package": "com.infinix.infinity",
+      "versionCode": 2
     },
     "web": {
       "bundler": "metro",
@@ -40,6 +42,7 @@
       "eas": {
         "projectId": "67992ad8-081c-4fa0-9b62-5c5573aa7c9b"
       }
-    }
+    },
+    "owner": "developer-bd"
   }
 }
