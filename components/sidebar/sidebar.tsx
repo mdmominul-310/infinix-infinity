@@ -14,6 +14,12 @@ const StickySidebar: React.FC = () => {
     );
   };
 
+  const handleAbout = () => {
+    Linking.openURL("https://theinfinixrealestate.com/about-us/").catch((err) =>
+      console.error("Failed to open URL:", err)
+    );
+  };
+
   return (
     <View style={styles.sidebar}>
       {/* <Text style={styles.title}>Sidebar awesome</Text> */}
@@ -23,7 +29,7 @@ const StickySidebar: React.FC = () => {
           style={{ width: 20, height: 20 }}
         />
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleContactUs} style={styles.button}>
+      <TouchableOpacity onPress={handleAbout} style={styles.button}>
         <Image
           source={require("@/assets/images/about.png")}
           style={{ width: 20, height: 20 }}
@@ -37,7 +43,7 @@ const styles = StyleSheet.create({
   sidebar: {
     flex: 1,
     position: "absolute",
-    top: 20,
+    top: 80,
     left: 0,
     height: "100%",
     width: 60,

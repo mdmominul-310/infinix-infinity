@@ -14,41 +14,38 @@ import StickySidebar from "@/components/sidebar/sidebar";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [isOnboarding, setIsOnboarding] = useState<boolean | null>(null); // Start with null to handle loading state
+  // const { isOnboarding } = useOnboarding(); // Start with null to handle loading state
+  const [isOnboarding, setIsOnboarding] = useState(true);
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
   useEffect(() => {
-    const checkOnboardingStatus = async () => {
-      try {
-        const value = await AsyncStorage.getItem("onboard");
-        if (value === "yes") {
-          console.log(value);
-          setIsOnboarding(false); // Set to false if onboarding is complete
-        } else {
-          setIsOnboarding(true); // Show onboarding if not completed
-        }
-      } catch (e) {
-        setIsOnboarding(true); // In case of error, assume onboarding is required
-      }
-    };
-
     if (loaded) {
-      checkOnboardingStatus();
+      // checkOnboardingStatus();
       SplashScreen.hideAsync();
     }
   }, [loaded]);
 
-  if (isOnboarding === null || !loaded) {
-    return null; // Loading state, ensure the app doesn't render prematurely
-  }
+  useEffect(() => {
+    const checkOnboardingStatus = async () => {
+      const onboardingStatus = await AsyncStorage.getItem("onboardingComplete");
 
-  // Show the WebView or main app content if onboarding is complete
+      if (onboardingStatus) {
+        setIsOnboarding(false);
+      } else {
+        setIsOnboarding(true);
+      }
+    };
+    checkOnboardingStatus();
+    return () => {};
+  }, []);
   if (!isOnboarding) {
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+      <SafeAreaView
+        style={{ flex: 1, backgroundColor: "#fff", paddingTop: 20 }}
+      >
         <View style={{ flex: 1 }}>
           <WebView source={{ uri: "https://theinfinixrealestate.com/" }} />
         </View>
@@ -58,5 +55,5 @@ export default function RootLayout() {
   }
 
   // Otherwise, show the onboarding screen
-  return <Onboarding />;
+  return <Onboarding setIsOnboarding={setIsOnboarding} />;
 }
