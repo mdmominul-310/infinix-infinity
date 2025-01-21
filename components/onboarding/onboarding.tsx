@@ -57,6 +57,8 @@ const Onboarding: React.FC<OnboardingProps> = ({ setIsOnboarding }) => {
         marginBottom: 100,
       }}
       dotColor="#5A6070"
+      loop={false} // Disable looping
+      scrollEnabled={false} // Disable swipe gestures
       dotStyle={{ marginBottom: 100 }}
       index={0}
       buttonWrapperStyle={{
